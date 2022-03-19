@@ -308,49 +308,29 @@ lm_1 %>%
 # Q-Q Plot: Used to examine whether the residuals are normally distributed. It’s good if residuals points follow the straight dashed line.
 # Location-Scale Plot: Used to check the homogeneity of variance of the residuals (homoscedasticity). Horizontal line with equally spread points is a good indication of homoscedasticity. 
 # Residuals vs Leverage. Used to identify influential cases, that is extreme values that might influence the regression results when included or excluded from the analysis. 
-######Result for this data: (see: http://www.sthda.com/english/articles/39-regression-model-diagnostics/161-linear-regression-assumptions-and-diagnostics-in-r-essentials/)
 ## (1) **Linearity of the data**: The linearity assumption can be checked by inspecting the Residuals vs Fitted plot (1st plot):
-plot(lm_1,1) #Closer look at 'Residual Plot' individually. # top 3 most extreme data points labeled with with the row numbers of the data in the data set.
-## (1 cont) There is no pattern in the residual plot. This suggests that we can assume linear relationship between the predictors and the outcome variables.
+plot(lm_1,1) 
 ## (2) **Homogeneity of variance**: The homogeneity of variance assumption can be checked by inspecting the 'Location-Scale' plot (3rd plot):
 plot(lm_1,3) #Closer look at 'Location-Scale' individually.
-## (2 cont) Heteroscedasticity problem seen, i.e. suggestion of heterogeneity of variance! Red line should be a horizontal; if there is any correlation or change in variance then the red line will not be horizontal; line is not horizontal at beginning. 
-## (2 cont) A possible solution to reduce the heteroscedasticity problem is to use a log or square root transformation of the outcome variable (y, i.e. age_of_onset).
 model2 <- lm(log(age_of_onset) ~ PRS, data = causative) # use a log or square root transformation of the outcome variable (y)
 plot(model2, 3)
-## (2 cont) Log graphs makes no difference for this data. WHAT TO DO??????????????????????????????????
 ## (3) **Normality of residuals**: The normality assumption can be checked by inspecting the Q-Q plot (2nd plot).
 plot(lm_1,2)
-## (3 cont) In our example, all the points fall approximately along this reference line, so we can assume normality.
 ## (4) **Outliers and high levarage points**: Outliers and high leverage points can be identified by inspecting the 'Residuals vs Leverage plot' (secret plot not on 4 plot view, it is the 5th plot)
-plot(lm_1,5, id.n=26) # secret 5th plot. # Am using id as a labeller cause I want to see what 2 points are above 0.15. 
-## (4 cont) Outliers: Standardized residuals can be interpreted as the number of standard errors away from the regression line. Observations whose standardized residuals are greater than 3 in absolute value are possible outliers.
-## (4 cont) Outliers: On my graph there is no outliers that exceed 3 standard deviations, which is good. 
-## (4 cont) High leverage points: Additionally, there should be no high leverage point in the data. That is, all data points, should have a leverage statistic below 2(p + 1)/n. 
-## (4 cont) High leverage points: A value of this statistic above 2(p + 1)/n indicates an observation with high leverage, where, p is the number of predictors and n is the number of observations.
-## (4 cont) High leverage points: My date = 2(1 + 1)/26 = 4/26 = 0.15. (WHAT TO DO?????????????????????) A data point has high leverage, if it has extreme predictor x values. I have 2 points on my graph that have leverage values above 0.15 (DATA POINTS 15 and 25) ahhhhhhhh???????????????????????????????????
-## (4 cont) On the 'Residuals vs Leverage' graph, #15 and # 25 points have a high leverage stastic idicating extreme predictor values.
-## (4 cont) Looking at the table, #15 has -0.8992 sumEffect ageonset 34 (lowest sumEffect on table), and #25 has 1.8160 sumeffect ageonset 49 (highest PRS)
-## (5) **Influential values**: The influence of a value can be checked by inspecting the COOK's D Plot plot (4th plot) and 'Residuals vs Leverage plot'.
-## (5 cont) An influential value is a value, which inclusion or exclusion can alter the results of the regression analysis. Such a value is associated with a large residual.
-## (5 cont) An observation has high influence if Cook’s distance exceeds 4/(n - p - 1) where n is the number of observations and p the number of predictor variables.
-## (5 cont) My data = 4/(n - p - 1) = 4/(26 - 1 - 1)  = 4/24 = 0.16666666. 
+plot(lm_1,5, id.n=26) 
 plot(lm_1,4, id.n=26)
-## (5 cont) !!!ALERT!!! Plot 4 shows that entry #2 in data has a Cooks distance > 0.1666 (0.2). 
 ## (5 cont) Also, The Residuals vs Leverage plot can help us to find influential observations if any. On this plot, outlying values are generally located at the upper right corner or at the lower right corner. Those spots are the places where data points can be influential against a regression line.
 plot(lm_1,5, id.n=26)
 
 ### Implement Test
 lm_1
-# age_of_onset = 37.56 + sumEffect*5.53
+
 
 anova_lm1 <- anova(lm_1)
 pdf("anova_lm1.pdf")
 grid.table(anova_lm1)
 dev.off()
 
-# p value = 0.0.03 (<0.05)
-#A simple linear regression showed that the sumEffect score in pps with a monogenic causative variant is a significant predictor for age_of_onset (F = 5.0697, df = 1,30, p = 0.03183).
 
 #Plotting the regression line
 #It can be very helpful to plot the regression line with the original data to see how far the data are from the predicted linear values. We can do this with:
@@ -400,7 +380,6 @@ plot(lm_1,5, id.n=26)
 
 ### Implement Test
 lm_2
-# age_of_onset = 37.56 + sumEffect*5.53
 
 anova_lm2 <- anova(lm_2)
 pdf("anova_lm2.pdf")
@@ -408,8 +387,6 @@ grid.table(anova_lm2)
 dev.off()
 
 #Plotting the regression line
-#It can be very helpful to plot the regression line with the original data to see how far the data are from the predicted linear values. We can do this with:
-# plot the data
 non_causative %>% 
   ggplot(aes(x = PRS, y = age_of_onset)) +
   geom_point() +
