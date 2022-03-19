@@ -33,7 +33,7 @@ Files supplied in repository (purpose):
 
 (3) Repository contains the folders 'Hypertrophic_Cardiomyopathy' and 'familial_hypercholesterolemia'. 
 These contain prs.R scripts that are specific to how to calculate PRS for those diseases.
-Special consideration/additional steps needed to be included due to reference alleles being effect alleles and different variants being assigned different weight depending on haplotype. Scripts are no able to run, without the additional files and cohort. Scripts are for examiner to see extra consideration coding steps needed and that this must be considered when calculating PRS.
+Special consideration/additional steps needed to be included due to reference alleles being effect alleles and different variants being assigned different weight depending on haplotype. Scripts are not able to run, without the additional files and cohort. Scripts are for examiner to see extra consideration coding steps needed and that this must be considered when calculating PRS.
 
 
 END
