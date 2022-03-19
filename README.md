@@ -1,8 +1,7 @@
 # 100KGP-MSt-PRS
 Code for 100KGP MSt project: Assessing the use of polygenic risk scores in the Genomic Medicine Service.
 
-The scripts and files submitted are for use in my MSt Genomic Medicine research project.
-Repository is set to private, available to Genomic Medicine Course Team for assessment purposes only. 
+The scripts and files submitted are for use in my MSt Genomic Medicine research project; made available to Genomic Medicine Course Team for assessment purposes. 
 
 (1) Repository contains the folder 'familial_breast_cancer'. This contains scripts which form a pipeline for assessing the polygenic risk for familial breast cancer of certain cohorts within the 100KGP. The pipeline is performed within the Genomics England Research Environment. 
 
