@@ -26,3 +26,6 @@ Files supplied in repository (purpose):
 
 Pipeline step (associated script):
 - Find risk loci present on GSA, generate files in format suitable for input into pipeline (1) above (gsa.R).
+
+- Files supplied in repository (purpose):
+- PGS000004.txt (input for script)
