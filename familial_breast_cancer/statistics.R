@@ -304,10 +304,13 @@ lm_1 %>%
   resid_panel(plots = c("resid", "qq", "ls", "cookd"),
               smoother = TRUE)
 #The diagnostic plots show residuals in four different ways:
-# Residual Plot: Residuals vs Fitted. Used to check the linear relationship assumptions. A horizontal line, without distinct patterns is an indication for a linear relationship, what is good.
+# Residual Plot: Residuals vs Fitted. Used to check the linear relationship assumptions. 
+#A horizontal line, without distinct patterns is an indication for a linear relationship, what is good.
 # Q-Q Plot: Used to examine whether the residuals are normally distributed. It’s good if residuals points follow the straight dashed line.
-# Location-Scale Plot: Used to check the homogeneity of variance of the residuals (homoscedasticity). Horizontal line with equally spread points is a good indication of homoscedasticity. 
-# Residuals vs Leverage. Used to identify influential cases, that is extreme values that might influence the regression results when included or excluded from the analysis. 
+# Location-Scale Plot: Used to check the homogeneity of variance of the residuals (homoscedasticity). 
+#Horizontal line with equally spread points is a good indication of homoscedasticity. 
+# Residuals vs Leverage. Used to identify influential cases, that is extreme values that might influence the regression results when included or excluded 
+#from the analysis. 
 ## (1) **Linearity of the data**: The linearity assumption can be checked by inspecting the Residuals vs Fitted plot (1st plot):
 plot(lm_1,1) 
 ## (2) **Homogeneity of variance**: The homogeneity of variance assumption can be checked by inspecting the 'Location-Scale' plot (3rd plot):
@@ -316,10 +319,12 @@ model2 <- lm(log(age_of_onset) ~ PRS, data = causative) # use a log or square ro
 plot(model2, 3)
 ## (3) **Normality of residuals**: The normality assumption can be checked by inspecting the Q-Q plot (2nd plot).
 plot(lm_1,2)
-## (4) **Outliers and high levarage points**: Outliers and high leverage points can be identified by inspecting the 'Residuals vs Leverage plot' (secret plot not on 4 plot view, it is the 5th plot)
+## (4) **Outliers and high levarage points**: Outliers and high leverage points can be identified by inspecting the 'Residuals vs Leverage plot' 
 plot(lm_1,5, id.n=26) 
 plot(lm_1,4, id.n=26)
-## (5 cont) Also, The Residuals vs Leverage plot can help us to find influential observations if any. On this plot, outlying values are generally located at the upper right corner or at the lower right corner. Those spots are the places where data points can be influential against a regression line.
+## (5 cont) Residuals vs Leverage plot can help us to find influential observations if any. 
+# On this plot, outlying values are generally located at the upper right corner or at the lower right corner. 
+# Those spots are the places where data points can be influential against a regression line.
 plot(lm_1,5, id.n=26)
 
 ### Implement Test
