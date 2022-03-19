@@ -23,3 +23,6 @@ Files supplied in repository (purpose):
 
 
 (2) Repository contains the folder 'GSA'. This contains scripts which form a pipeline for assessing variants which are on the GSA. 
+
+Pipeline step (associated script):
+- Find risk loci present on GSA, generate files in format suitable for input into pipeline (1) above (gsa.R).
