@@ -4,12 +4,14 @@
 
 # Last updated March 2022.
 
-# Purpose of this script: This script finds which polygenic risk associated loci
+# Purpose of this script: This script finds which 313 BC polygenic risk associated loci
 #                         are on the GSAv3 array.
-#                         It outputs a tab de-limited file of common loci in build 
-#                         37 and 38. Output files made are called:
+#                         It outputs a tab de-limited files of common loci in build 
+#                         37 and 38, some with effect weight/alt/ref info.
+#                         Output files made are called:
 #                         sharedVariants_arrayAndSequencing_grch38.txt
 #                         and sharedVariants_arrayAndSequencing_grch37.txt
+#                         and pgs.regions.grch37.txt and pgs.regions.grch38.txt
 
 
 #### --------------------------- Load packages --------------------------- ####
@@ -49,8 +51,11 @@ commonvars <- pgsfile[which(pgsfile$ID %in% gsafile$ID),];
 write.table(commonvars, "sharedVariants_arrayAndSequencing.grch37.txt", col.names = T,
             row.names = F, quote = F)
 
+## Make a regions file in build 37
+write.table(commonvars[,c("chr_name","chr_position", "chr_position")], "pgs.regions.grch37.txt",
+            col.names = F, row.names = F, quote = F) 
 
-## Convert shared variants co-ordinates from build grch37 to grch38.
+## Make a regions file in build 37 compatible with liftover website (add chr prefix)
 temp <- commonvars; 
 temp$chr <- paste("chr", temp$chr_name, sep = "");
 write.table(temp[,c(ncol(temp),2,2)], "sharedVariants_arrayAndSequencing_trimmed.txt",
@@ -58,10 +63,10 @@ write.table(temp[,c(ncol(temp),2,2)], "sharedVariants_arrayAndSequencing_trimmed
 
 ## USER ACTION REQUIRED: Use white listed page https://genome.ucsc.edu/cgi-bin/hgLiftOver
 # Convert sharedVariants_arrayAndSequencing_trimmed.txt from build 37 to 38. 
-# save output as commonvars.grch38.regions.txt. 
+# save output as pgs.regions.grch38.txt 
 
 # read into R the LiftOver output.
-temp <- read.table("commonvars.grch38.regions.txt", header = F, stringsAsFactors = F); 
+temp <- read.table("pgs.regions.grch38.txt", header = F, stringsAsFactors = F); 
 commonvars38 <- commonvars;
 commonvars$chr_position <- temp$V2;
 write.table(commonvars, "sharedVariants_arrayAndSequencing_grch38.txt",
