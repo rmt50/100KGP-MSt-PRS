@@ -112,3 +112,5 @@ write.table(temp[,c(ncol(temp),2,2)], "liftoverinput.txt", quote = F,
 # GRCh37 to GRCh38. 
 # USER ACTION REQUIRED: Save converted file into working directory as 
 # pgs.grch38.regions.txt.
+
+######## END
