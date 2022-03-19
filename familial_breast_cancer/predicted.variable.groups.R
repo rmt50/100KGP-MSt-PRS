@@ -10,7 +10,7 @@
 #                    (2) Additionally, this script annotates rows with groups 
 #                        status; control, case: monogenic causative variant ABSENT
 #                       , case: monogenic causative variant PRESENT. 
-#                    (3) The input required for this script is ollatedeffect df.
+#                    (3) The input required for this script is collatedeffect df.
 
 ####---------------------------------- Load packages --------------------------------####
 
