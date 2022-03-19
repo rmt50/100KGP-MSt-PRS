@@ -87,10 +87,9 @@ write.table(rare.disease.analysis.cohort$file_path[which(
 
 ####--- Create list of chromosomal coordinates for the risk allele loci ----####
 
-
 # USER ACTION REQUIRED: Download scoring file from PGS catalog 
 # webpage: https://ftp.ebi.ac.uk/pub/databases/spot/pgs/scores/PGS000004/ScoringFiles/).
-# USER ACTION REQUIRED: Save in working directory as a tab de-limited file (.txt).
+# USER ACTION REQUIRED: Save in working directory as a tab de-limited file PGS000004.txt.
 # Note: PGS000004.txt has chromosomal positions in GRCh37.
 
 # Import PGS scoring file (PGS000004.txt) into R as dataframe.
