@@ -101,8 +101,14 @@ pgs000004.grch37 <- read.table("/home/rtaylor3/re_gecip/shared_allGeCIPs/rtaylor
 write.table(pgs000004.grch37[,c("chr_name","chr_position", "chr_position")], file="pgs.grch37.regions.txt", quote = F,
           col.names = F, row.names = F)
 
-# To create grch38 regions txt file:
-# USER ACTION REQUIRED: import pgs.grch37.regions.txt into white listed 
+## Create grch38 regions txt file:
+temp <- read.table("home/rtaylor3/re_gecip/shared_allGeCIPs/rtaylor3/familial_breast_and_or_ovarian_cancer/pgs.grch37.regions.txt",
+                   header = F, stringsAsFactors = F)
+temp$chr <- paste("chr", temp$V1, sep = ""); # liftover required chr prefix to chromosome number. 
+write.table(temp[,c(ncol(temp),2,2)], "liftoverinput.txt", quote = F,
+          col.names = F, row.names = F, quote = F))
+
+# USER ACTION REQUIRED: import liftoverinput.txt into white listed 
 # web page http://www.genome.ucsc.edu/cgi-bin/hgLiftOver and liftover from 
 # GRCh37 to GRCh38. 
 # USER ACTION REQUIRED: Save converted file into working directory as 
