@@ -6,7 +6,10 @@
 
 # Purpose of this script: This script finds which polygenic risk associated loci
 #                         are on the GSAv3 array.
-#                         It outputs a tab de-limited file of common loci.
+#                         It outputs a tab de-limited file of common loci in build 
+#                         37 and 38. Output files made are called:
+#                         sharedVariants_arrayAndSequencing_grch38.txt
+#                         and sharedVariants_arrayAndSequencing_grch37.txt
 
 
 #### --------------------------- Load packages --------------------------- ####
@@ -43,7 +46,7 @@ pgsfile$ID <- paste(pgsfile$chr_name, pgsfile$chr_position, sep = "_");
 ## Cross-compare the unique IDs and saves the shared variants.
 # Note: both files are in the genome build GRCh37. 
 commonvars <- pgsfile[which(pgsfile$ID %in% gsafile$ID),];
-write.table(commonvars, "sharedVariants_arrayAndSequencing.txt", col.names = T,
+write.table(commonvars, "sharedVariants_arrayAndSequencing.grch37.txt", col.names = T,
             row.names = F, quote = F)
 
 
@@ -52,6 +55,11 @@ temp <- commonvars;
 temp$chr <- paste("chr", temp$chr_name, sep = "");
 write.table(temp[,c(ncol(temp),2,2)], "sharedVariants_arrayAndSequencing_trimmed.txt",
             col.names = F, row.names = F, quote = F) # create input for LiftOver.
+
+## USER ACTION REQUIRED: Use white listed page https://genome.ucsc.edu/cgi-bin/hgLiftOver
+# Convert sharedVariants_arrayAndSequencing_trimmed.txt from build 37 to 38. 
+# save output as commonvars.grch38.regions.txt. 
+
 # read into R the LiftOver output.
 temp <- read.table("commonvars.grch38.regions.txt", header = F, stringsAsFactors = F); 
 commonvars38 <- commonvars;
@@ -59,23 +67,5 @@ commonvars$chr_position <- temp$V2;
 write.table(commonvars, "sharedVariants_arrayAndSequencing_grch38.txt",
             col.names = T, row.names = F, quote = F)
 
-# commonvars <- gsafile[which(gsafile$ID %in% pgsfile$ID),c("Chr","MapInfo","SNP","RefStrand","IlmnStrand")]
-# commonvars$refAllele <- "";
-# commonvars$alterAllele <- "";
-# revNt <- list("A" = "T", "C" = "G", "G" = "C", "T" = "A")
-# for(i in 1:nrow(commonvars)){
-#   snp <- strsplit(as.character(commonvars$SNP[i]), split = "")[[1]][c(2,4)];
-#   if(commonvars$RefStrand[i] == "+" & commonvars$IlmnStrand[i] == "TOP"){
-#     commonvars[i,6:7] <- snp;
-#   }else if(commonvars$RefStrand[i] == "+" & commonvars$IlmnStrand[i] == "BOT"){
-#     commonvars[i,6:7] <- snp[2:1];
-#   }else if(commonvars$RefStrand[i] == "-" & commonvars$IlmnStrand[i] == "BOT"){
-#     commonvars[i,6:7] <- c(revNt[[snp[1]]], revNt[[snp[2]]]);
-#   }else if(commonvars$RefStrand[i] == "-" & commonvars$IlmnStrand[i] == "TOP"){
-#     commonvars[i,6:7] <- c(revNt[[snp[2]]], revNt[[snp[1]]]);
-#   }
-# }
-# commonvars$ID <- paste(commonvars$Chr, commonvars$MapInfo, commonvars$refAllele, commonvars$alterAllele, sep = "_");
-# pgsfile$ID <- paste(pgsfile$chr_name, pgsfile$chr_position, pgsfile$other_allele, pgsfile$effect_allele, sep = "_");
-# commonvars <- commonvars[which((commonvars$ID %in% pgsfile$ID)),]
-# nrow(commonvars)
+
+###### END
